@@ -20,6 +20,7 @@ function handelStart(event) {
     function handelStop(event) {
       if (event) {
         clearInterval(colorChange);
+        // document.body.style.backgroundColor = white;
       }
     }
   }
