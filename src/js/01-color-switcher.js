@@ -11,6 +11,8 @@ const stopBtn = document.querySelector('button[data-stop]');
 
 startBtn.addEventListener('click', handelStart);
 function handelStart(event) {
+  startBtn.setAttribute('disable', true);
+
   if (event) {
     const colorChange = setInterval(() => {
       document.body.style.backgroundColor = getRandomHexColor();
