@@ -1,34 +1,61 @@
 import flatpickr from 'flatpickr';
+// Додатковий імпорт стилів
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
 
-const options = {
+const dataDays = document.querySelector('[data-days]');
+const dataHours = document.querySelector('[data-hours]');
+const dataMinutes = document.querySelector('[data-minutes]');
+const dataSeconds = document.querySelector('[data-seconds]');
+const inputDate = document.querySelector('#datetime-picker');
+const btnDate = document.querySelector('[data-start]');
+
+const fp = flatpickr(inputDate, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
-    console.log(selectedDates[0]);
+
+  onClose([selectedDates]) {
+    if (selectedDates <= new Date()) {
+      btnDate.setAttribute('disable', true);
+      Notiflix.Notify.failure('Please choose a date in the future');
+    } else {
+      btnDate.setAttribute('disable', true);
+    }
   },
-};
+});
 
-const choseDate = document.querySelector('#datetime-picker');
-console.log(choseDate);
+btnDate.addEventListener('click', onClick);
+function onClick() {
+  interval = setInterval(() => {
+    const currentData = new Date();
+    let n = new Date(inputDate.value);
+    convertMs(n - currentData);
+    if (n < currentData) {
+      console.log('Please choose a date in the future');
+      clearInterval(interval);
+    }
+  }, 1000);
+}
 
-// -----
-// // Change value of isSuccess variable to call resolve or reject
-// const isSuccess = true;
+function convertMs(ms) {
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
-// const promise = new Promise((resolve, reject) => {
-//   setTimeout(() => {
-//     if (isSuccess) {
-//       resolve('Success! Value passed to resolve function');
-//     } else {
-//       reject('Error! Error passed to reject function');
-//     }
-//   }, 2000);
-// });
+  const days = Math.floor(ms / day);
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-// promise
-//   .then(value => console.log(value)) // "Success! Value passed to resolve function"
-//   .catch(error => console.log(error)) // "Error! Error passed to reject function"
-//   .finally(() => console.log('Promise settled')); // "Promise settled"
+  return outData({ days, hours, minutes, seconds });
+}
+
+function outData({ days, hours, minutes, seconds }) {
+  dataDays.textContent = days.toString().padStart(2, '0');
+  dataHours.textContent = hours.toString().padStart(2, '0');
+  dataMinutes.textContent = minutes.toString().padStart(2, '0');
+  dataSeconds.textContent = seconds.toString().padStart(2, '0');
+}
