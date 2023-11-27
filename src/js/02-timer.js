@@ -28,12 +28,12 @@ const fp = flatpickr(inputDate, {
 
 btnDate.addEventListener('click', onClick);
 function onClick() {
-  interval = setInterval(() => {
+  const interval = setInterval(() => {
     const currentData = new Date();
     let n = new Date(inputDate.value);
     convertMs(n - currentData);
     if (n < currentData) {
-      console.log('Please choose a date in the future');
+      alert('Attention !!! Please choose a date in the future');
       clearInterval(interval);
     }
   }, 1000);
