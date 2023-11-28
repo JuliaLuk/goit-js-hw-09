@@ -10,6 +10,8 @@ const dataSeconds = document.querySelector('[data-seconds]');
 const inputDate = document.querySelector('#datetime-picker');
 const btnDate = document.querySelector('[data-start]');
 
+btnDate.disabled = true;
+
 const fp = flatpickr(inputDate, {
   enableTime: true,
   time_24hr: true,
@@ -18,10 +20,11 @@ const fp = flatpickr(inputDate, {
 
   onClose([selectedDates]) {
     if (selectedDates <= new Date()) {
-      btnDate.setAttribute('disable', true);
+      btnDate.disabled = true;
       Notiflix.Notify.failure('Please choose a date in the future');
+      alert('Please choose a date in the future');
     } else {
-      btnDate.setAttribute('disable', true);
+      btnDate.disabled = false;
     }
   },
 });
@@ -33,7 +36,7 @@ function onClick() {
     let n = new Date(inputDate.value);
     convertMs(n - currentData);
     if (n < currentData) {
-      // Notiflix.Notify.failure('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
       alert('Attention !!! Please choose a date in the future');
       clearInterval(interval);
     }
