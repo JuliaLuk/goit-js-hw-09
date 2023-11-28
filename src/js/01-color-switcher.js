@@ -9,14 +9,17 @@ const startBtn = document.querySelector('button[data-start]');
 const stopBtn = document.querySelector('button[data-stop]');
 // console.log(stopBtn);
 
+stopBtn.disabled = true;
+
 startBtn.addEventListener('click', handelStart);
 function handelStart(event) {
-  startBtn.setAttribute('disable', true);
-
   if (event) {
     const colorChange = setInterval(() => {
       document.body.style.backgroundColor = getRandomHexColor();
-    }, 600);
+    }, 1000);
+
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
 
     stopBtn.addEventListener('click', handelStop);
     function handelStop(event) {
@@ -24,6 +27,8 @@ function handelStart(event) {
         clearInterval(colorChange);
         // document.body.style.backgroundColor = white;
       }
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
     }
   }
 }

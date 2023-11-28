@@ -14,12 +14,14 @@ function onClick(event) {
 
     createPromise(i, currentDelay)
       .then(({ position, delay }) => {
+        alert('Attention !!! Please choose a date in the future');
         //console.log(✅ Fulfilled promise ${position} in ${delay}ms);
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
         );
       })
       .catch(({ position, delay }) => {
+        alert('Attention !!! Please choose a date in the future');
         //console.log(❌ Rejected promise ${position} in ${delay}ms);
         Notiflix.Notify.failure(
           `❌ Rejected promise ${position} in ${delay}ms`

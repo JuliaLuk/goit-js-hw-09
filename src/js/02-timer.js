@@ -33,6 +33,7 @@ function onClick() {
     let n = new Date(inputDate.value);
     convertMs(n - currentData);
     if (n < currentData) {
+      // Notiflix.Notify.failure('Please choose a date in the future');
       alert('Attention !!! Please choose a date in the future');
       clearInterval(interval);
     }
