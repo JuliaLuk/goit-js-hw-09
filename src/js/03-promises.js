@@ -22,7 +22,7 @@ function onClick(event) {
       })
       .catch(({ position, delay }) => {
         alert('Attention !!! Please choose a date in the future');
-        console.log(❌ Rejected promise ${position} in ${delay}ms);
+        // console.log(`❌ Rejected promise ${position} in ${delay}ms`);
         Notiflix.Notify.failure(
           `❌ Rejected promise ${position} in ${delay}ms`
         );
