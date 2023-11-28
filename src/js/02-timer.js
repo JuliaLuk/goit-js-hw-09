@@ -22,7 +22,7 @@ const fp = flatpickr(inputDate, {
     if (selectedDates <= new Date()) {
       btnDate.disabled = true;
       Notiflix.Notify.failure('Please choose a date in the future');
-      alert('Please choose a date in the future');
+      // alert('Please choose a date in the future');
     } else {
       btnDate.disabled = false;
     }
@@ -33,14 +33,19 @@ btnDate.addEventListener('click', onClick);
 function onClick() {
   const interval = setInterval(() => {
     const currentData = new Date();
+    // console.log(currentData);
     let n = new Date(inputDate.value);
+
     convertMs(n - currentData);
     if (n < currentData) {
       Notiflix.Notify.failure('Please choose a date in the future');
-      alert('Attention !!! Please choose a date in the future');
-      clearInterval(interval);
+      // alert('Attention !!! Please choose a date in the future');
+      if (convertMs === 0) {
+        clearInterval(interval);
+      }
     }
   }, 1000);
+  btnDate.disabled = true;
 }
 
 function convertMs(ms) {
