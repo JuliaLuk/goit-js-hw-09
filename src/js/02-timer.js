@@ -22,6 +22,7 @@ const fp = flatpickr(inputDate, {
   onClose([selectedDates]) {
     if (selectedDates <= new Date()) {
       btnDate.disabled = true;
+
       Notiflix.Notify.failure('Please choose a date in the future');
       // alert('Please choose a date in the future');
     } else {
@@ -30,6 +31,7 @@ const fp = flatpickr(inputDate, {
     timeDedline = selectedDates;
   },
 });
+// console.log(fp);
 
 btnDate.addEventListener('click', onClick);
 function onClick() {
